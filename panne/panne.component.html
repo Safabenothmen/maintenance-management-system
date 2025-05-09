@@ -1,0 +1,64 @@
+<div class="container mt-4">
+  <h3>Ajouter une Panne</h3>
+  <form (ngSubmit)="onSubmit()" #panneForm="ngForm">
+    <div class="form-group">
+      <label for="equipementId">Équipement</label>
+      <select
+        class="form-control"
+        name="equipementId"
+        [(ngModel)]="equipementId"
+        required
+      >
+        <option [value]="0" disabled selected>-- Sélectionner un équipement --</option>
+        <option *ngFor="let eq of equipements" [value]="eq.id">{{ eq.nom }}</option>
+      </select>
+    </div>
+
+    <div class="form-group mt-2">
+      <label>Description</label>
+      <input
+        type="text"
+        class="form-control"
+        name="description"
+        [(ngModel)]="panne.description"
+        required
+      />
+    </div>
+
+    <div class="form-group mt-2">
+      <label>Catégorie</label>
+      <input
+        type="text"
+        class="form-control"
+        name="categorie"
+        [(ngModel)]="panne.categorie"
+        required
+      />
+    </div>
+
+    <div class="form-group mt-2">
+      <label>Date de signalement</label>
+      <input
+        type="date"
+        class="form-control"
+        name="date_sign"
+        [(ngModel)]="panne.date_sign"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3" [disabled]="panneForm.invalid">
+      Ajouter Panne
+    </button>
+  </form>
+
+  <h3>Liste des Pannes</h3>
+<ul>
+  <li *ngFor="let p of pannes">
+    <strong>{{ p.description }}</strong> - {{ p.categorie }} - 
+    {{ p.date_sign | date:'shortDate' }} -
+    <em>Équipement ID: {{ p.equipement?.nom }}</em>
+  </li>
+</ul>
+
+</div>

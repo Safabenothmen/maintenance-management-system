@@ -1,0 +1,40 @@
+<div class="container">
+  <!-- Boutons pour changer de vue -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button (click)="affichage = 'ajouter'">Ajouter Technicien</button>
+    <button (click)="affichage = 'liste'">Liste des Techniciens</button>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Chargement -->
+  <div *ngIf="loading">Chargement...</div>
+
+  <!-- Formulaire d'ajout -->
+  <div *ngIf="!loading && affichage === 'ajouter'">
+    <form (ngSubmit)="ajouterTechnicien()" #technicienForm="ngForm">
+      <input [(ngModel)]="newTechnicien.nom" name="nom" placeholder="Nom" required />
+      <input [(ngModel)]="newTechnicien.email" name="email" placeholder="Email" required />
+      <input [(ngModel)]="newTechnicien.mdp" name="mdp" placeholder="Mot de passe" required />
+      <input [(ngModel)]="newTechnicien.competences" name="competences" placeholder="Compétences" required />
+      <button type="submit" [disabled]="!technicienForm.valid">Ajouter Technicien</button>
+    </form>
+  </div>
+
+  <!-- Liste des techniciens -->
+  <div *ngIf="!loading && affichage === 'liste'">
+    <ul>
+      <li *ngFor="let technicien of techniciens">
+        <div>
+          <strong>{{ technicien.nom }}</strong><br />
+          {{ technicien.email }}<br />
+          {{ technicien.competences }}<br />
+          <em>{{ technicien.disponibilite ? '✅ Disponible' : '❌ Indisponible' }}</em>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

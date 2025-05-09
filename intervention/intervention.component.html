@@ -1,0 +1,27 @@
+<form (ngSubmit)="onSubmit()">
+  <label>Date :</label>
+  <input type="date" [(ngModel)]="intervention.date" name="date" required />
+
+  <label>Coût :</label>
+  <input type="number" [(ngModel)]="intervention.cout" name="cout" required />
+
+  <label>Statut :</label>
+  <select [(ngModel)]="intervention.statut" name="statut">
+    <option value="Planifiee">Planifiée</option>
+    <option value="En_cours">En cours</option>
+    <option value="Terminee">Terminée</option>
+    <option value="Annulee">Annulée</option>
+  </select>
+
+  <label>Équipement :</label>
+  <select [(ngModel)]="equipementId" name="equipementId" required>
+    <option *ngFor="let e of equipements" [value]="e.id">{{ e.nom }}</option>
+  </select>
+
+  <label>Technicien :</label>
+  <select [(ngModel)]="technicienId" name="technicienId" required>
+    <option *ngFor="let t of techniciens" [value]="t.id">{{ t.nom }}</option>
+  </select>
+
+  <button type="submit">Ajouter Intervention</button>
+</form>
